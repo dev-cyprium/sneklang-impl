@@ -1,7 +1,3 @@
-//
-// Created by Stefan Kupresak on 14. 12. 2025..
-//
-
 #ifndef SNEKLANG_LEXER_H
 #define SNEKLANG_LEXER_H
 

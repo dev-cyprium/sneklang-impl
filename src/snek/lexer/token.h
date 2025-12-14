@@ -1,7 +1,3 @@
-//
-// Created by Stefan Kupresak on 14. 12. 2025.
-//
-
 #ifndef SNEKLANG_TOKEN_H
 #define SNEKLANG_TOKEN_H
 #include <stdio.h>
