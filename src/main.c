@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
 
 
     token_t *token;
-    while ((token = lexer_next(&source_file)) != NULL)
+    while ((token = lexer_next(&source_file))->type != TOKEN_EOF)
     {
         printf("(%d,%s)\n", token->type, token->value);
     }

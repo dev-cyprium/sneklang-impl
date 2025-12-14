@@ -9,6 +9,7 @@
 static void advance(sneklang_source_file_t* source_file);
 static void skip_whitespace(sneklang_source_file_t* source_file);
 static token_t* id(sneklang_source_file_t *source_file);
+static token_t* quote(sneklang_source_file_t *source_file);
 
 sneklang_source_file_t lexer_new(char *file_buffer)
 {
@@ -49,8 +50,7 @@ token_t* lexer_next(sneklang_source_file_t *source_file)
         switch (curr)
         {
             case '"':
-                advance(source_file);
-                return token_new(QUOTE, "\"");
+                return quote(source_file);
             case '=':
                 advance(source_file);
                 return token_new(EQUAL, "=");
@@ -60,7 +60,34 @@ token_t* lexer_next(sneklang_source_file_t *source_file)
         }
     }
 
-    return NULL;
+    return token_new(TOKEN_EOF, NULL);
+}
+
+static token_t* quote(sneklang_source_file_t *sf)
+{
+    advance(sf); // skip opening quote
+    const size_t start = sf->current_pos;
+
+    while (sf->current_char != '"' && sf->current_char != '\0') {
+        advance(sf);
+    }
+
+    if (sf->current_char == '\0') {
+        return NULL;
+    }
+
+    const size_t end = sf->current_pos;
+    size_t len = end - start;
+
+    char *buffer = malloc(len + 1);
+    if (!buffer) return NULL;
+
+    memcpy(buffer, sf->file_buffer + start, len);
+    buffer[len] = '\0';
+
+    advance(sf);
+
+    return token_new(QUOTE, buffer);
 }
 
 static token_t* id(sneklang_source_file_t *source_file)
@@ -75,13 +102,12 @@ static token_t* id(sneklang_source_file_t *source_file)
         advance(source_file);
     }
 
-    char *buffer = malloc(sizeof(char)*(end_offset-start_offset+1));
-    unsigned int mark = 0;
-    for (size_t i = start_offset; i < end_offset; i++)
-    {
-        buffer[mark++] = source_file->file_buffer[i];
-    }
-    buffer[mark] = '\0';
+    const size_t len = end_offset - start_offset;
+    char *buffer = malloc(len+1);
+    if (!buffer) return NULL;
+
+    memcpy(buffer, source_file->file_buffer + start_offset, len);
+    buffer[len] = '\0';
 
     for (size_t i=0; i < keyword_count; i++)
     {

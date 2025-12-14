@@ -21,6 +21,9 @@ token_t* token_new(const token_type_t type, char* value)
 
 void token_free(token_t* token)
 {
-    free(token->value);
-    free(token);
+    if (token)
+    {
+        free(token->value);
+        free(token);
+    }
 }

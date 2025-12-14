@@ -17,7 +17,8 @@ typedef enum TokenType
     RETURN,
     ID,
     QUOTE,
-    EQUAL
+    EQUAL,
+    TOKEN_EOF
 } token_type_t;
 
 typedef struct Token
