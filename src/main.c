@@ -41,9 +41,10 @@ int main(int argc, char **argv) {
     // printf("=== Sneklang source (%s) ===\n", argv[1]);
     // printf("%s\n", source_file.file_buffer);
 
-    const token_t *token = lexer_next(&source_file);
+    token_t *token = lexer_next(&source_file);
     printf("(%d,%s)\n", token->type, token->value);
 
     free(source);
+    token_free(token);
     return 0;
 }

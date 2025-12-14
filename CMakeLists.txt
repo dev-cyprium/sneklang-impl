@@ -7,6 +7,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 add_executable(snek
         src/main.c
         src/snek/lexer/lexer.c
+        src/snek/lexer/token.c
 )
 
 target_compile_options(snek PRIVATE

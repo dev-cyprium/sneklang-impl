@@ -1,6 +1,3 @@
-//
-// Created by Stefan Kupresak on 14. 12. 2025.
-//
 #include "lexer.h"
 
 #include <assert.h>
@@ -73,9 +70,14 @@ static token_t* id(sneklang_source_file_t *source_file)
     }
     buffer[mark] = '\0';
 
-    printf("BUFFER: %s \n", buffer);
-
-    return NULL;
+    for (size_t i=0; i < keyword_count; i++)
+    {
+        if (strcmp(buffer, keywords[i].value) == 0)
+        {
+            return token_new(keywords[i].type, buffer);
+        }
+    }
+    return token_new(ID, buffer);
 }
 
 static void skip_whitespace(sneklang_source_file_t *source_file)
