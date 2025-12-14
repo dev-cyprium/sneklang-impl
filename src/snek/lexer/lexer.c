@@ -45,6 +45,19 @@ token_t* lexer_next(sneklang_source_file_t *source_file)
         {
             return id(source_file);
         }
+
+        switch (curr)
+        {
+            case '"':
+                advance(source_file);
+                return token_new(QUOTE, "\"");
+            case '=':
+                advance(source_file);
+                return token_new(EQUAL, "=");
+            default:
+                printf("token %c no matches", curr);
+                return NULL;
+        }
     }
 
     return NULL;
