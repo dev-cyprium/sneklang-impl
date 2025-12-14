@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "snek/lexer/lexer.h"
+
 static char *read_entire_file(const char *path) {
     FILE *f = fopen(path, "rb");
     if (!f) return NULL;
@@ -33,8 +35,14 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    printf("=== Sneklang source (%s) ===\n", argv[1]);
-    printf("%s\n", source);
+    sneklang_source_file_t source_file = lexer_new(source);
+
+
+    // printf("=== Sneklang source (%s) ===\n", argv[1]);
+    // printf("%s\n", source_file.file_buffer);
+
+    const token_t *token = lexer_next(&source_file);
+    printf("(%d,%s)\n", token->type, token->value);
 
     free(source);
     return 0;
