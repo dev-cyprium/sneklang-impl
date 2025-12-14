@@ -15,15 +15,19 @@ static token_t* id(sneklang_source_file_t *source_file);
 
 sneklang_source_file_t lexer_new(char *file_buffer)
 {
-    assert(file_buffer && "file_buffer is null");
-    const sneklang_source_file_t t = {
-        .file_buffer = file_buffer,
-        .current_char = file_buffer[0],
-        .current_pos = 0,
-        .total_len = strlen(file_buffer)
-    };
+    if (file_buffer)
+    {
+        const sneklang_source_file_t t = {
+            .file_buffer = file_buffer,
+            .current_char = file_buffer[0] ? file_buffer[0] : '\0',
+            .current_pos = 0,
+            .total_len = strlen(file_buffer)
+        };
 
-    return t;
+        return t;
+    }
+
+    return (sneklang_source_file_t) {.error_state = true};
 }
 
 
