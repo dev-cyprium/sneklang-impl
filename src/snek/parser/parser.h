@@ -61,7 +61,13 @@ struct ast_node
     } as;
 };
 
-void parse(sneklang_source_file_t*);
 parser_t parser_new(sneklang_source_file_t* source);
+
+void parser_advance(parser_t* p);
+bool parser_match(parser_t* p, token_type_t type);
+void parser_expect(parser_t* p, token_type_t type, const char* message);
+
+ast_node_t* parse_expression(parser_t* p, int min_bp);
+
 
 #endif //SNEKLANG_PARSER_H
