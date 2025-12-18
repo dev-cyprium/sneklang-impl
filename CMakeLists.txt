@@ -10,6 +10,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 add_library(snekcore
         src/snek/lexer/lexer.c
         src/snek/lexer/token.c
+        src/snek/parser/parser.c
 )
 
 target_compile_options(snekcore PRIVATE
@@ -25,7 +26,6 @@ target_include_directories(snekcore PUBLIC
 # ------------------------
 add_executable(snek
         src/main.c
-        src/snek/parser/parser.c
 )
 
 target_link_libraries(snek PRIVATE snekcore)

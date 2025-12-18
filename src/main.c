@@ -57,15 +57,12 @@ int main(int argc, char** argv)
 
     sneklang_source_file_t source_file = lexer_new(source);
 
-
     // printf("=== Sneklang source (%s) ===\n", argv[1]);
     // printf("%s\n", source_file.file_buffer);
-
 
     token_t* token;
     while ((token = lexer_next(&source_file))->type != TOKEN_EOF)
     {
-        // printf("(%d,%s)\n", token->type, token->value);
         token_debug(token);
     }
 
