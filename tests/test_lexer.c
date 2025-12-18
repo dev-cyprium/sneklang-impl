@@ -3,15 +3,12 @@
 #include "snek/lexer/lexer.h"
 #include "snek/lexer/token.h"
 
-/*
- * whisper "hi"
- */
 static MunitResult
-test_whisper_string(const MunitParameter params[], void *data)
+test_whisper_string(const MunitParameter params[], void* data)
 {
     sneklang_source_file_t src = lexer_new("whisper \"hi\"");
 
-    token_t *tok;
+    token_t* tok;
 
     // whisper
     tok = lexer_next(&src);
@@ -44,7 +41,7 @@ static MunitTest lexer_tests[] = {
         MUNIT_TEST_OPTION_NONE,
         NULL
     },
-    { NULL, NULL, NULL, NULL, 0, NULL }
+    {NULL, NULL, NULL, NULL, 0, NULL}
 };
 
 static const MunitSuite suite = {
@@ -55,7 +52,7 @@ static const MunitSuite suite = {
     MUNIT_SUITE_OPTION_NONE
 };
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     return munit_suite_main(&suite, NULL, argc, argv);
 }

@@ -1,0 +1,10 @@
+coil add(a, b)
+    return a + b
+unhiss
+
+shed x = 10
+shed y = 32
+shed z = add(x, y)
+
+whisper "sum is:"
+whisper z

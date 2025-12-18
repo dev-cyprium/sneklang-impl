@@ -18,19 +18,27 @@ typedef enum TokenType
     ID,
     QUOTE,
     EQUAL,
-    TOKEN_EOF
+    TOKEN_EOF,
+    L_PAREN,
+    R_PAREN,
+    COMMA,
+    PLUS,
+    INTEGER_CONST,
+    REAL_CONST
 } token_type_t;
 
 typedef struct Token
 {
     token_type_t type;
-    char *value;
+    char* value;
 } token_t;
 
 extern const token_t keywords[];
 extern const size_t keyword_count;
 
 token_t* token_new(token_type_t type, char* value);
+void token_debug(const token_t*);
 void token_free(token_t* token);
+
 
 #endif //SNEKLANG_TOKEN_H
