@@ -25,6 +25,7 @@ target_include_directories(snekcore PUBLIC
 # ------------------------
 add_executable(snek
         src/main.c
+        src/snek/parser/parser.c
 )
 
 target_link_libraries(snek PRIVATE snekcore)
